@@ -23,12 +23,27 @@ async function run(){
     try{
 
         const allCategory = client.db('jobTask').collection('category');
+        const allItems = client.db('jobTask').collection('items');
 
 
 
         app.get('/allCategory', async (req, res) => {
             const query = {}
             const result = await allCategory.find(query).toArray()
+            res.send(result)
+        })
+
+        app.get('/allItems', async (req, res) => {
+            const query = {}
+            const result = await allItems.find(query).toArray()
+            res.send(result)
+        })
+        
+        app.get('/allCategory/:id', async (req, res) => {
+            const id = req.params.id
+            console.log(id);
+            const query = { _id: new ObjectId(id) }
+            const result = await allCategory.findOne(query)
             res.send(result)
         })
 
@@ -41,6 +56,11 @@ async function run(){
         app.post('/allCategory', async (req, res) => {
             const home = req.body
             const result = await allCategory.insertOne(home)
+            res.send(result)
+        })
+        app.post('/allItems', async (req, res) => {
+            const home = req.body
+            const result = await allItems.insertOne(home)
             res.send(result)
         })
 
@@ -65,27 +85,27 @@ async function run(){
             res.send(result)
         })
 
-
-
-
-
-
-
-
-
-
-
-
-
-        app.get('/allHome/:id', async (req, res) => {
+        app.delete('/allItems/:id', async (req, res) => {
             const id = req.params.id
-            console.log(id);
             const query = { _id: new ObjectId(id) }
-            const result = await allHome.findOne(query)
+            const result = await allItems.deleteOne(query)
             res.send(result)
         })
+
+
+
+
+
+
+
+
+
+
+
+
+
       
-        app.put('/allHome-update/:id', async (req, res) => {
+        app.put('/allCategory/:id', async (req, res) => {
             const id = req.params.id
             const filter = { _id: new ObjectId(id) }
             const products = req.body
@@ -94,24 +114,18 @@ async function run(){
             const updatedProducts = {
                 $set: {
                     name: products.name,
-                    price: products.price,
-                    image: products.image,
-                    type: products.type,
-                    category_id: products.category_id,
-                    validation: products.validation
+                    description: products.description,
+                    active: products.active,
+                    time: products.time,
+                   
                     
                 }
             }
-            const result = await allHome.updateOne(filter, updatedProducts, options)
+            const result = await allCategory.updateOne(filter, updatedProducts, options)
             res.send(result)
            
         })
-        app.delete('/users/:id', async (req, res) => {
-            const id = req.params.id
-            const query = { _id: new ObjectId(id) }
-            const result = await usersCollections.deleteOne(query)
-            res.send(result)
-        })
+    
 
 
     }
