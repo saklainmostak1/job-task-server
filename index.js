@@ -47,6 +47,14 @@ async function run(){
             res.send(result)
         })
 
+        app.get('/allItems/:id', async (req, res) => {
+            const id = req.params.id
+            console.log(id);
+            const query = { _id: new ObjectId(id) }
+            const result = await allItems.findOne(query)
+            res.send(result)
+        })
+
 
 
 
@@ -122,6 +130,28 @@ async function run(){
                 }
             }
             const result = await allCategory.updateOne(filter, updatedProducts, options)
+            res.send(result)
+           
+        })
+    
+        app.put('/allItems/:id', async (req, res) => {
+            const id = req.params.id
+            const filter = { _id: new ObjectId(id) }
+            const products = req.body
+            console.log(products);
+            const options = {upsert: true}
+            const updatedProducts = {
+                $set: {
+                    name: products.name,
+                    description: products.description,
+                    active: products.active,
+                    time: products.time,
+                    category: products.category,
+                   
+                    
+                }
+            }
+            const result = await allItems.updateOne(filter, updatedProducts, options)
             res.send(result)
            
         })
