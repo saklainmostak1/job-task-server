@@ -1,0 +1,14 @@
+[
+    {
+        "category_id": "2",
+        "title": "Web Developer",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque suscipit unde quidem quibusdam cum eum nemo excepturi mollitia rem architecto?"
+      
+    },
+    {
+        "category_id": "1",
+        "title": "Front-End Developer",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque suscipit unde quidem quibusdam cum eum nemo excepturi mollitia rem architecto?"
+        
+    }
+]
